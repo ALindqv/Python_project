@@ -7,8 +7,8 @@ Tekijät:
 - Kalle Heiskanen
 
 # Työmäärän jakautuminen
-Arttu teki x
-Kalle teki x
+- Arttu teki x
+- Kalle teki x
 
 # Sisällysluettelo
 
