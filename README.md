@@ -6,7 +6,7 @@ Tekijät:
 - Arttu Lindqvist
 - Kalle Heiskanen
 
-# Työmäärän jaka
+# Työmäärän jakautuminen
 - Arttu teki x
 - Kalle teki x
 
