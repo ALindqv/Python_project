@@ -1,52 +1,57 @@
-import os
-import pydoc
+import os, pydoc
 
 def main():
     print("Hei!")
     while True:
         uusi_lista = input("Uusi vai olemassaoleva lista (u/o)? ") #Kysytään haluaako tehdä uuden listan
 
+        # Uuden listan luonti
         if uusi_lista == "u":
-            lista_nimi = input("Anna listalle nimi")
-            uusi_tiedosto = open(f"{lista_nimi}.txt","w") # Kirjoittaa uuden tiedoston
+            lista_nimi = input("Listan nimi: ")
+            with open(f"listat/{lista_nimi}.txt","w") as ostoslista: # Kirjoittaa uuden tiedoston
+                
+                
+                muokkaus = input("Haluatko muokata listaa (y/n)? ")
+                if muokkaus == "y":
+                    lisays(ostoslista)
+            ostoslista.close()
            
+        # Olemassaolevan listan käsittely
         elif uusi_lista == "o":
-            jos_ei = input("Muokkaus vai poisto (m/p)? ")
-            if jos_ei == "m":
-                mita_muokataan = input("Mitä listaa muokataan? ")
-                with open(f"{mita_muokataan}.txt", "a") as ostoslista: # Avaa olemassaolevan tiedoston ja lisää tekstiä
-                    
-                    # Silmukka kysyy käyttäjältä listaan lisättäviä tuotteita kunnes "v"
-                    tuotteet = [] # Tyhjä lista tuotteita varten
-                    while True:
-                        tuote = input("Mitä lisätään? ")
-                        if tuote == "v": 
-                            print("Lista valmis")
-                            break
-                        tuotteet.append(tuote)
-                        print(tuotteet)
-
-                    for tuote in tuotteet:
-                        ostoslista.write(f"- {tuote} \n")
-                        
-            elif jos_ei == "p":
+            olemassa = input("Muokkaus vai poisto (m/p)? ")
+            
+            # Muokkaus
+            if olemassa == "m":
+                valitse_lista = input("Mitä listaa muokataan? ")
+                with open(f"listat/{valitse_lista}.txt", "a") as ostoslista: # Avaa olemassaolevan tiedoston ja lisää tekstiä
+                    lisays(ostoslista)
+                ostoslista.close()
+            
+            # Poisto            
+            elif olemassa == "p":
                 poistettava_lista = input("Mikä lista poistetaan? ")
                 poisto(poistettava_lista)
 
+
+
+def lisays(ostoslista):                       
+        tuotteet = [] # Tyhjä lista tuotteita varten
+
+        while True: # Silmukka kysyy käyttäjältä listaan lisättäviä tuotteita
+            tuote = input("Lisättävä tuote: ")
+
+            # Ohjelman lopettaminen inputilla
+            if tuote == "v":
+                print("Lista valmis")
+                break
+
+            # Lisää käyttäjän syötteen listaan
+            tuotteet.append(tuote)
+            print(tuotteet)
+        for tuote in tuotteet:
+            ostoslista.write(f"- {tuote} \n")
+
 def poisto(ostoslista):
-    os.remove(f"{ostoslista}.txt") # Poistaa listan
-
-def lisays():
-    while True:
-        lisataan = input("Lisää ostokset: ")
-        ostoslista.write(f"- {lisataan}\n")
-        if lisataan == "valmis":
-            print("Lista tallennettu")
-            break 
-
-
-def lisataan_listaan():        
-    uuteen_lisays = input("Lisätäänkö vai Poistetaanko listasta (L/P)? ")
-    poisto = input("Mitkä tuotteet poistetaan? ")
+    os.remove(f"listat/{ostoslista}.txt") # Poistaa listan
          
 main()
