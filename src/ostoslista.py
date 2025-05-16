@@ -3,12 +3,12 @@ import os, pydoc
 def main():
     print("Hei!")
     while True:
-        uusi_lista = input("Uusi vai olemassaoleva lista (u/o)? ") #Kysytään haluaako tehdä uuden listan
+        uusi_lista = input("Uusi vai olemassaoleva lista (u/o)? ") # Kysytään halutaanko tehdä uuden listan
 
         # Uuden listan luonti
         if uusi_lista == "u":
             lista_nimi = input("Listan nimi: ")
-            with open(f"listat/{lista_nimi}.txt","w") as ostoslista: # Kirjoittaa uuden tiedoston
+            with open(f"listat/{lista_nimi}.txt","w", encoding="utf-8") as ostoslista: # Kirjoittaa uuden tiedoston
                 
                 
                 muokkaus = input("Haluatko muokata listaa (y/n)? ")
@@ -23,8 +23,8 @@ def main():
             # Muokkaus
             if olemassa == "m":
                 valitse_lista = input("Mitä listaa muokataan? ")
-                with open(f"listat/{valitse_lista}.txt", "a") as ostoslista: # Avaa olemassaolevan tiedoston ja lisää tekstiä
-                    lisays(ostoslista)
+                with open(f"listat/{valitse_lista}.txt","a", encoding="utf-8") as ostoslista: # Avaa olemassaolevan tiedoston ja lisää tekstiä
+                    lisays(ostoslista) # Kutsutaan funktiota lisays
                 ostoslista.close()
             
             # Poisto            
@@ -33,8 +33,8 @@ def main():
                 poisto(poistettava_lista)
 
 
-
-def lisays(ostoslista):                       
+# Funktio tuotteiden lisäämiseen listoihin
+def lisays(ostoslista):                   
         tuotteet = [] # Tyhjä lista tuotteita varten
 
         while True: # Silmukka kysyy käyttäjältä listaan lisättäviä tuotteita
