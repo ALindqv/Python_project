@@ -56,9 +56,9 @@ Projektissa on saavutettu toimiva versio, joka voidaan ottaa käyttöön. Suunni
 
 # Lähteet ja tekijät
 
-- [W3schools](#https://www.w3schools.com/python/default.asp)  
-- [Diagrams](#https://app.diagrams.net/)
-- [Pythonology](#https://pythonology.eu/how-to-use-pydoc-to-generate-documentation-in-python/)
+- [W3schools](https://www.w3schools.com/python/default.asp)  
+- [Diagrams](https://app.diagrams.net/)
+- [Pythonology](https://pythonology.eu/how-to-use-pydoc-to-generate-documentation-in-python/)
 
 # Lisenssi
 
