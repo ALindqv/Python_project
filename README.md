@@ -16,6 +16,7 @@ Tekijät:
 Projektin nimi on. Sovelluksella voidaan käsitellä ostoslistoja kätevästi. Käyttäjä voi lisätä ja poistaa tuotteita listasta. Tuotteita voi lisätä joko yhden tai useamman samaan aikaan sekä määrittää, kuinka paljon tuotetta halutaan. Ohjelmalla voi käsitellä valmiiksi olemassaolevia tiedostoja tai luoda uusia tiedostoja. 
 
 # Kuvakaappaukset
+!(/kuvat/ostoslista_vuokaavio.png "Vuokaavio")
 
 # Teknologiat
 Ohjelma on tehty pythonilla. Projektissa käytetään pydpc-moduulia dokumentointia varten
