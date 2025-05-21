@@ -68,7 +68,6 @@ def listan_poisto(ostoslista):
 
 def main():
     """ Pääohjelma """
-    print("Hei!")
     while True:
         polku = "./listat"
 
