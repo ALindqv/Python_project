@@ -3,16 +3,32 @@ import os
 import pydoc
 
 
-def lista_luonti(nimi, mode):
-    """ Funktio, joka luo listatiedostoja """
-    ostoslista = open(f"listat/{nimi}.txt", mode, encoding="utf-8") # Kirjoittaa uuden tiedoston                  
-    return ostoslista # Palauttaa tiedoston muuttuja-arvona
+def lista_kasittely(nimi, mode):
+    """  
+    - Parametreinä nimi (käsiteltävän listan nimi) ja käsittelyn mode
+    - Palauttaa arvon lista, jota käytetään 
+    """
+    lista = open(f"listat/{nimi}.txt", mode, encoding="utf-8") # Kirjoittaa uuden tiedoston                  
+    return lista # Palauttaa tiedoston muuttuja-arvona
 
-def uusi():
-    """ Uuden tyhjän listan luonti """
-    lista_nimi = input("Nimeä lista: ")
-    lista_luonti(lista_nimi, "w")
+def lista_luku(nimi):
+    """ Lukee listan nimellä, joka on annettu parametrinä
+        - Palauttaa tiedostosta luetut rivit sekä listatiedoston sisällön
+    """
+    lista = open(f"listat/{nimi}.txt","r",encoding="utf-8")
+    rivit = lista.readlines()
+    sisalto = [rivi.strip() for rivi in rivit if rivi.strip()] # Ostoslistassa olevat tuotteet
+    return rivit, sisalto
 
+def uusi_tyhja():
+    """ Uuden tyhjän listan luonti 
+        - Saatuaan käyttäjältä listan nimen, ohjelma kutsuu annetulla nimellä
+        funktiota lista_kasittely
+        - Palauttaa funktiosta saamansa arvon
+    """
+    nimi = input("Nimeä lista: ")
+    lista = lista_kasittely(nimi, "w")
+    return lista
 
 def lisays(ostoslista):
     """ Funktio tuotteiden lisäämiseen listatiedostoihin """            
@@ -37,11 +53,10 @@ def lisays(ostoslista):
 def listasta_poisto(lista):
     """ Funktio listan sisällön poistamiseen """
     while len(lista) > 0:
-        poistettava_tuote = input("Mitkä tuotteet poistetaan? kirjoita 'v' kun valmista: ")
-        poistettavat_tuotteet = [tuote.strip() for tuote in poistettava_tuote.split(",")]
+        poistettava_tuote = input("Mitkä tuotteet poistetaan? Kirjoita 'v' kun valmista: ")
+        poistettavat_tuotteet = [tuote.strip() for tuote in poistettava_tuote.split(",")] # Muodostetaan lista poistettavista tuotteista ja poistetaan tulostuksesta välit
                 
         poistettavien_maara = 0
-        
         if poistettava_tuote == "v":
             print("Lista valmis")
             break
@@ -61,21 +76,21 @@ def listasta_poisto(lista):
 
 
 def listan_poisto(ostoslista):
-    """ Listatiedostojen poistaminen """
+    """ Listatiedostojen poistaminen 
+        - Ottaa vastaan listan nimen ja os-moduuli poistaa tiedoston nimen perusteella
+    """
     os.remove(f"listat/{ostoslista}.txt") # Poistaa listan
-
-
 
 def main():
     """ Pääohjelma """
     while True:
         polku = "./listat"
-
+        
         if os.listdir(polku) == []:
             luodaanko = input("Ei tiedostoja, luodaanko uusi (y/n)? ") # Tiedostoja ei löytynyt hakemistosta
 
             if luodaanko == "y":
-                uusi()
+                uusi_tyhja()
 
             elif luodaanko == "n":
                 print("Lopetetaan")
@@ -90,9 +105,7 @@ def main():
 
             # Uuden listan luonti
             if uusi_lista == "u":
-                lista_nimi = input("Nimeä lista: ")
-            
-                lista = lista_luonti(lista_nimi, "w") # Tallennetaan lista_kirjoitus-funktion paluuarvo muuttujaan 
+                lista = uusi_tyhja()
                 
                 muokataanko = input("Haluatko muokata listaa (y/n)? ") 
                 if muokataanko == "y":
@@ -104,60 +117,66 @@ def main():
             # Olemassaolevan listan käsittely
             elif uusi_lista == "v":
 
-                # Listataan olemassaolevat listatiedostot 
+                # Listataan olemassaolevat listatiedostot
+                alaviiva = "\033[4m" # Tiedostojen nimet alaviivataan listauksessa
+                normaali_teksti = "\033[0m" # Muuttaa tekstin takaisin normaaliksi alaviivattujen sanojen jälkeen
                 print("Tiedostot:")
                 for tiedosto in os.listdir(polku):
-                    print(f"- {tiedosto}")
+                    print('- '+f'{alaviiva}{tiedosto}{normaali_teksti}')
+                print()
                 
                 valitse_lista = input("Valitse lista: ")
-                olemassa = input("Listan muokkaus vai poisto (m/p)? ")
+                valitse_lista += '.txt' # Tiedoston nimen loppuun lisätään tiedoston .txt, että ohjelma osaa etsiä sitä
+
                 
-                # Muokkaus
-                if olemassa == "m":
-                    
-                    
-                    lista = lista_luonti(valitse_lista, "a") # Tallennetaan lista_kirjoitus-funktion paluuarvo muuttujaan
-                    
-                    lisays_poisto = input("Lisätäänkö listaan vai poistetaanko listasta (l/p)? ")
-                    
-                    if lisays_poisto == "l":
-                        lisays(lista) # Kutsutaan funktiota muokkaus
-                        lista.close()
-                    
-                    elif lisays_poisto == "p":
-                        with open(f"listat/{valitse_lista}.txt","r",encoding="utf-8") as lista:
-                            rivit = lista.readlines()
-                            listan_tuotteet = [rivi.strip() for rivi in rivit if rivi.strip()] # Ostoslistassa olevat tuotteet
-                            print(listan_tuotteet)
-                            
-                            if listan_tuotteet == []:
+                while valitse_lista in os.listdir(polku):
+                    olemassa = input("Listan muokkaus vai poisto (m/p)? ")
+                
+                    # Muokkaus
+                    if olemassa == "m":
+                        
+                        valitse_lista = valitse_lista.strip('.txt') # Tiedostotyyppi poistetaan nimestä käsittelyfunktiota varten
+
+                        lista = lista_kasittely(valitse_lista, "a") # Tallennetaan lista_kirjoitus-funktion paluuarvo muuttujaan
+                        
+                        lisays_poisto = input("Lisätäänkö listaan vai poistetaanko listasta (l/p)? ")
+                        
+                        if lisays_poisto == "l":
+                            lisays(lista) # Kutsutaan funktiota lisays lista_kasittely-funktion paluuarvolla
+                            lista.close()
+                        
+                        elif lisays_poisto == "p":
+                            rivit, listan_sisalto = lista_luku(valitse_lista) # Saadaan halutun listan sisältö ja rivit kutsumalla funktiota
+                            if len(listan_sisalto) == 0:
                                 print("Tyhjä lista, kokeile uudelleen")
                                 return
                             else:
                                 for tuote in rivit:
-                                    print(tuote.rstrip())
+                                    print(f'{alaviiva}{tuote.strip()}{normaali_teksti}')
+                            print()
 
-                                #print(poistettavat_tuotteet)
+                            listasta_poisto(listan_sisalto) # Kutsutaan poistofunktiota, parametrinä listan tuotteet
 
-                            listasta_poisto(listan_tuotteet) # Kutsutaan poistofunktiota, parametrinä listan tuotteet
+                            print(listan_sisalto)
+                            with open(f"listat/{valitse_lista}.txt", "w", encoding = 'utf-8') as lista:
+                                for rivi in listan_sisalto: 
+                                    lista.write(f"{rivi}\n") # For loop kirjoittaa käyttäjän merkkijonot listatiedostoon
 
-                            print(listan_tuotteet)
-                        with open(f"listat/{valitse_lista}.txt", "w", encoding = 'utf-8') as lista:
-                            for rivi in listan_tuotteet: 
-                                lista.write(f"{rivi}\n") # For loop kirjoittaa käyttäjän merkkijonot listatiedostoon
-                                
+                        else:
+                            print("Sopimaton arvo, kokeile l tai p")
+                            continue     
                         
 
-                # Listatiedostojen poisto            
-                elif olemassa == "p":
-                    poistettava_lista = input("Mikä lista poistetaan? ")
-                    print(f"{poistettava_lista} poistettu")
-                    listan_poisto(poistettava_lista)
+                    # Listatiedostojen poisto            
+                    elif olemassa == "p":
+                        valitse_lista = valitse_lista.strip('.txt')
+                        print(f"Lista {alaviiva}{valitse_lista}{normaali_teksti} poistettu")
+                        listan_poisto(valitse_lista)
 
-                # Sopimaton arvo
-                else:
-                    print("Sopimaton arvo, kokeile m tai p")
-                    continue
+                    # Sopimaton arvo
+                    else:
+                        print("Sopimaton arvo, kokeile m tai p")
+                        continue
             
             jatko = input("Jatketaanko (y/n)? ")
 
@@ -168,6 +187,6 @@ def main():
                 break
 
 # Tekee PyDoc-dokumentaation projektista
-pydoc.writedoc('ostoslista')
+#pydoc.writedoc('ostoslista')
 
 main()

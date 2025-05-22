@@ -36,7 +36,7 @@ Tuotteita voi lisätä tai poistaa joko yhden tai useamman samaan aikaan. Ohjelm
 
 # Kuvakaappaukset
 
-!(/kuvat/ostoslista_vuokaavio.png "Vuokaavio")
+!(kuvat/ostoslista_vuokaavio.png "Vuokaavio")
 
 # Teknologiat
 
