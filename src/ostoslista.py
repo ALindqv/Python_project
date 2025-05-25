@@ -142,6 +142,9 @@ def main():
     """ Pääohjelma """
     polku = "./listat" # Listatiedostojen hakemisto
 
+    if not os.path.exists(polku): # Luo hakemiston, jos sitä ei ole
+        os.makedirs(polku) 
+
     # Ohjelma käynnistyy tähän haaraan, jos hakemisto on tyhjä
     while len(os.listdir(polku)) == 0:
         luodaanko = input("Ei tiedostoja, luodaanko uusi (y/n)? ") # Tiedostoja ei löytynyt hakemistosta
