@@ -96,7 +96,8 @@ def listan_muokkaus(nimi, polku):
         # Muokkaus
         if olemassa == "m":
             
-            nimi = nimi.strip('.txt') # Tiedostotyyppi poistetaan nimestä käsittelyfunktiota varten
+            
+            nimi = nimi[:-4] # Tiedostotyyppi poistetaan nimestä käsittelyfunktiota varten
 
             lista = lista_kasittely(nimi, "a") # Tallennetaan lista_kirjoitus-funktion paluuarvo muuttujaan
             
@@ -129,7 +130,7 @@ def listan_muokkaus(nimi, polku):
             
         # Listatiedostojen poisto            
         elif olemassa == "p":
-            nimi = nimi.strip('.txt')
+            nimi = nimi[:-4]
             print(f"Lista {alaviiva}{nimi}{normaali_teksti} poistettu")
             listan_poisto(nimi)
 
@@ -141,6 +142,8 @@ def listan_muokkaus(nimi, polku):
 def main():
     """ Pääohjelma """
     polku = "./listat" # Listatiedostojen hakemisto
+    if not os.path.exists(polku):
+        os.makedirs(polku)
 
     # Ohjelma käynnistyy tähän haaraan, jos hakemisto on tyhjä
     while len(os.listdir(polku)) == 0:
