@@ -15,7 +15,7 @@ def lista_luku(nimi):
     """ Lukee listan nimellä, joka on annettu parametrinä
         - Palauttaa tiedostosta luetut rivit sekä listatiedoston sisällön
     """
-    lista = open(f"listat/{nimi}.txt","r",encoding="utf-8")
+    lista = lista_kasittely(nimi, "r")
     rivit = lista.readlines()
     sisalto = [rivi.strip() for rivi in rivit if rivi.strip()] # Ostoslistassa olevat tuotteet
     return rivit, sisalto
@@ -28,6 +28,7 @@ def uusi_tyhja():
     """
     nimi = input("Nimeä lista: ")
     lista = lista_kasittely(nimi, "w")
+    print("Uusi lista luotu")
     return lista
 
 def lisays(ostoslista):
@@ -77,7 +78,7 @@ def listasta_poisto(lista):
 
 def listan_poisto(ostoslista):
     """ Listatiedostojen poistaminen 
-        - Ottaa vastaan listan nimen ja os-moduuli poistaa tiedoston nimen perusteella
+        - Ottaa vastaan listan nimen ja tiedosto poistetaan os-moduulilla
     """
     os.remove(f"listat/{ostoslista}.txt") # Poistaa listan
 
@@ -137,7 +138,6 @@ def listan_muokkaus(nimi, polku):
             print("Sopimaton arvo, kokeile m tai p")
             continue
 
-
 def main():
     """ Pääohjelma """
     polku = "./listat" # Listatiedostojen hakemisto
@@ -159,10 +159,10 @@ def main():
 
     # Ohjelma käyttää tätä haaraa, jos tiedostoja on jo olemassa
     while len(os.listdir(polku)) > 0:
-        uusi_lista = input("Uusi lista vai käytetäänkö vanhaa lista (u/v)? ") # Kysytään halutaanko tehdä uusi lista vai käyttää vanhaa, jos hakemisto ei ole tyhjä
+        uusi_tai_vanha = input("Uusi lista vai käytetäänkö vanhaa lista (u/v)? ") # Kysytään halutaanko tehdä uusi lista vai käyttää vanhaa, jos hakemisto ei ole tyhjä
 
         # Uuden listan luonti
-        if uusi_lista == "u":
+        if uusi_tai_vanha == "u":
             lista = uusi_tyhja()
             
             muokataanko = input("Haluatko muokata listaa (y/n)? ") 
@@ -173,7 +173,7 @@ def main():
             lista.close() # Suljetaan tiedosto, että ohjelma voi tallentaa muokkaukset
         
         # Olemassaolevan listan käsittely
-        elif uusi_lista == "v":
+        elif uusi_tai_vanha == "v":
 
             # Listataan olemassaolevat listatiedostot
             alaviiva = "\033[4m" # Tiedostojen nimet alaviivataan listauksessa
@@ -199,4 +199,4 @@ def main():
 main()
 
 # Tekee PyDoc-dokumentaation projektista
-pydoc.writedoc('ostoslista')
+#pydoc.writedoc('ostoslista')

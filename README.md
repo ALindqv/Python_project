@@ -36,7 +36,9 @@ Tuotteita voi lisätä tai poistaa joko yhden tai useamman samaan aikaan. Ohjelm
 
 # Kuvakaappaukset
 
-![Projektin Vuokaavio](/kuvat/vuokaavio.png "Projektin vuokaavio")
+![Ohjelman toimintaa: Tuotteiden lisääminen 1](/kuvat//kuvankaappaukset/Ohjelma_toiminta_tuotteiden_lisays1.png "Tuotteiden lisäystä") 
+![Ohjelman toimintaa: Tuotteiden lisääminen 2](/kuvat//kuvankaappaukset/Ohjelma_toiminta_tuotteiden_lisays2.png "Tuotteiden lisäystä") 
+![Ohjelman toimintaa: Tuotteiden poistaminen 1](/kuvat//kuvankaappaukset/Ohjelma_toiminta_tuotteiden_poisto.png "Tuotteiden poistamista")
 
 # Teknologiat
 
@@ -50,6 +52,9 @@ Projektia suunnitellessa seurasimme opintojaksolla annettuja ohjeita. Suunnittel
 Aloitimme suunnittelemalla ja kehittämällä sovelluksen siihen asti, että kaikki perusominaisuudet toimivat. 
 Projektin esittelyn jälkeen sovellusta voidaan vielä kehittää eteenpäin. Pyrimme tekemään sovellukseen koodia, jota voidaan helposti käyttää uudelleen uusiin ominaisuuksiin.
 
+Projektin vuokaavio: 
+![Projektin Vuokaavio](/kuvat/vuokaavio.png "Projektin vuokaavio")
+
 # Tila
 
 Projektissa on saavutettu toimiva versio, joka voidaan ottaa käyttöön. Suunnittelemme tekevämme käyttöliittymää ohjelmalle tulevaisuudessa versiion 2.0. Versio 2.0:n julkaisuaika ei ole tiedossa vielä.
@@ -62,22 +67,4 @@ Projektissa on saavutettu toimiva versio, joka voidaan ottaa käyttöön. Suunni
 
 # Lisenssi
 
-MIT License @ 2025 ALindqv
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+MIT License @ ALindqv
