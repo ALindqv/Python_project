@@ -32,7 +32,10 @@ def uusi_tyhja():
     return lista
 
 def lisays(ostoslista):
-    """ Funktio tuotteiden lisäämiseen listatiedostoihin """            
+    """ 
+    Funktio tuotteiden lisäämiseen listatiedostoihin 
+    Ottaa vastaan listan nimen paramatrinä ja käyttää sitä kirjoittamaan listan sisällön oikeaan listaan
+    """            
     tuotteet = [] # Tyhjä lista tuotteita varten
     while True: # Silmukka kysyy käyttäjältä listaan lisättäviä tuotteita
         tuote = input("Lisättävä tuote: ")
@@ -52,7 +55,10 @@ def lisays(ostoslista):
             ostoslista.write(f"{tuote}\n") # For loop kirjoittaa käyttäjän merkkijonot listatiedostoon
 
 def listasta_poisto(lista):
-    """ Funktio listan sisällön poistamiseen """
+    """ 
+    Funktio listan sisällön poistamiseen 
+    Ottaa vastaan listan nimen parametrinä ja suorittaa poiston
+    """
     while len(lista) > 0:
         poistettava_tuote = input("Mitkä tuotteet poistetaan? Kirjoita 'v' kun valmista: ")
         poistettavat_tuotteet = [tuote.strip() for tuote in poistettava_tuote.split(",")] # Muodostetaan lista poistettavista tuotteista ja poistetaan tulostuksesta välit
@@ -77,8 +83,9 @@ def listasta_poisto(lista):
 
 
 def listan_poisto(ostoslista):
-    """ Listatiedostojen poistaminen 
-        - Ottaa vastaan listan nimen ja tiedosto poistetaan os-moduulilla
+    """ 
+    Listatiedostojen poistaminen 
+    - Ottaa vastaan listan nimen paramatrinä ja tiedosto poistetaan os-moduulilla
     """
     os.remove(f"listat/{ostoslista}.txt") # Poistaa listan
 
@@ -111,7 +118,7 @@ def listan_muokkaus(nimi, polku):
                 rivit, listan_sisalto = lista_luku(nimi) # Saadaan halutun listan sisältö ja rivit kutsumalla funktiota
                 if len(listan_sisalto) == 0:
                     print("Tyhjä lista, kokeile uudelleen")
-                    return
+                    continue
                 else:
                     for tuote in rivit:
                         print(f'{alaviiva}{tuote.strip()}{normaali_teksti}')
@@ -142,59 +149,57 @@ def listan_muokkaus(nimi, polku):
 def main():
     """ Pääohjelma """
     polku = "./listat" # Listatiedostojen hakemisto
-    if not os.path.exists(polku):
-        os.makedirs(polku)
 
     if not os.path.exists(polku): # Luo hakemiston, jos sitä ei ole
         os.makedirs(polku) 
 
     # Ohjelma käynnistyy tähän haaraan, jos hakemisto on tyhjä
-    while len(os.listdir(polku)) == 0:
-        luodaanko = input("Ei tiedostoja, luodaanko uusi (y/n)? ") # Tiedostoja ei löytynyt hakemistosta
+    while True:
+        while len(os.listdir(polku)) == 0:
+            luodaanko = input("Ei tiedostoja, luodaanko uusi (y/n)? ") # Tiedostoja ei löytynyt hakemistosta
+                
+            if luodaanko == "y":
+                uusi_tyhja()
+
+            elif luodaanko == "n":
+                break
+
+            else:
+                print("Sopimaton arvo, kokeile y tai n")
+                continue
+
+        # Ohjelma käyttää tätä haaraa, jos tiedostoja on jo olemassa
+        while len(os.listdir(polku)) > 0:
+            uusi_tai_vanha = input("Uusi lista vai käytetäänkö vanhaa lista (u/v)? ") # Kysytään halutaanko tehdä uusi lista vai käyttää vanhaa, jos hakemisto ei ole tyhjä
+
+            # Uuden listan luonti
+            if uusi_tai_vanha == "u":
+                lista = uusi_tyhja()
+                
+                muokataanko = input("Haluatko muokata listaa (y/n)? ") 
+                if muokataanko == "y":
+                    lisays(lista) # Käytetään aikaisempaa muuttujaa parametrinä muokkaus-funktiolle
+                elif muokataanko == "n":
+                    print("Tyhjä lista tallennettu")
+                lista.close() # Suljetaan tiedosto, että ohjelma voi tallentaa muokkaukset
             
-        if luodaanko == "y":
-            uusi_tyhja()
+            # Olemassaolevan listan käsittely
+            elif uusi_tai_vanha == "v":
 
-        elif luodaanko == "n":
-            print("Lopetetaan")
-            break
+                # Listataan olemassaolevat listatiedostot
+                alaviiva = "\033[4m" # Tiedostojen nimet alaviivataan listauksessa
+                normaali_teksti = "\033[0m" # Muuttaa tekstin takaisin normaaliksi alaviivattujen sanojen jälkeen
+                print("Tiedostot:")
+                for tiedosto in os.listdir(polku):
+                    print('- '+f'{alaviiva}{tiedosto}{normaali_teksti}')
+                print()
+                
+                valitse_lista = input("Valitse lista: ")
+                valitse_lista += '.txt' # Tiedoston nimen loppuun lisätään tiedoston .txt, että ohjelma osaa etsiä sitä
 
-        else:
-            print("Sopimaton arvo, kokeile y tai n")
-            continue
-
-    # Ohjelma käyttää tätä haaraa, jos tiedostoja on jo olemassa
-    while len(os.listdir(polku)) > 0:
-        uusi_tai_vanha = input("Uusi lista vai käytetäänkö vanhaa lista (u/v)? ") # Kysytään halutaanko tehdä uusi lista vai käyttää vanhaa, jos hakemisto ei ole tyhjä
-
-        # Uuden listan luonti
-        if uusi_tai_vanha == "u":
-            lista = uusi_tyhja()
+                listan_muokkaus(valitse_lista, polku)
+                
             
-            muokataanko = input("Haluatko muokata listaa (y/n)? ") 
-            if muokataanko == "y":
-                lisays(lista) # Käytetään aikaisempaa muuttujaa parametrinä muokkaus-funktiolle
-            elif muokataanko == "n":
-                print("Tyhjä lista tallennettu")
-            lista.close() # Suljetaan tiedosto, että ohjelma voi tallentaa muokkaukset
-        
-        # Olemassaolevan listan käsittely
-        elif uusi_tai_vanha == "v":
-
-            # Listataan olemassaolevat listatiedostot
-            alaviiva = "\033[4m" # Tiedostojen nimet alaviivataan listauksessa
-            normaali_teksti = "\033[0m" # Muuttaa tekstin takaisin normaaliksi alaviivattujen sanojen jälkeen
-            print("Tiedostot:")
-            for tiedosto in os.listdir(polku):
-                print('- '+f'{alaviiva}{tiedosto}{normaali_teksti}')
-            print()
-            
-            valitse_lista = input("Valitse lista: ")
-            valitse_lista += '.txt' # Tiedoston nimen loppuun lisätään tiedoston .txt, että ohjelma osaa etsiä sitä
-
-            listan_muokkaus(valitse_lista, polku)
-            
-        
         jatko = input("Jatketaanko (y/n)? ")
 
         if jatko == "y":
