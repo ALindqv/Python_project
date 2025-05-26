@@ -1,7 +1,5 @@
 """ os moduuli tiedostojen käsittelyä varten """
 import os
-import pydoc
-
 
 def lista_kasittely(nimi, mode):
     """  
@@ -208,6 +206,3 @@ def main():
             print("Lopetetaan")
             break
 main()
-
-# Tekee PyDoc-dokumentaation projektista
-#pydoc.writedoc('ostoslista')
