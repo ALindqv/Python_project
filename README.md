@@ -7,6 +7,9 @@ Projektin tekemiseen osallistuivat:
 - Arttu Lindqvist
 - Kalle Heiskanen
 
+## Demo-linkki:  
+Projektin demovideo youtubessa [youtube.com](https://youtu.be/YDnR8RC99jo)
+
 # Työmäärän jakautuminen
 
 - Koodin kirjoittaminen:

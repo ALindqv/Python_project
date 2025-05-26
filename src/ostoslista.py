@@ -1,11 +1,11 @@
 """ os moduuli tiedostojen käsittelyä varten """
 import os
 
+"""  
+- Parametreinä nimi (käsiteltävän listan nimi) ja käsittelyn mode
+- Palauttaa arvon lista, jota käytetään 
+"""
 def lista_kasittely(nimi, mode):
-    """  
-    - Parametreinä nimi (käsiteltävän listan nimi) ja käsittelyn mode
-    - Palauttaa arvon lista, jota käytetään 
-    """
     lista = open(f"listat/{nimi}.txt", mode, encoding="utf-8") # Kirjoittaa uuden tiedoston                  
     return lista # Palauttaa tiedoston muuttuja-arvona
 
@@ -18,22 +18,23 @@ def lista_luku(nimi):
     sisalto = [rivi.strip() for rivi in rivit if rivi.strip()] # Ostoslistassa olevat tuotteet
     return rivit, sisalto
 
+""" Uuden tyhjän listan luonti 
+- Saatuaan käyttäjältä listan nimen, ohjelma kutsuu annetulla nimellä
+funktiota lista_kasittely
+- Palauttaa funktiosta saamansa arvon
+"""
 def uusi_tyhja():
-    """ Uuden tyhjän listan luonti 
-        - Saatuaan käyttäjältä listan nimen, ohjelma kutsuu annetulla nimellä
-        funktiota lista_kasittely
-        - Palauttaa funktiosta saamansa arvon
-    """
     nimi = input("Nimeä lista: ")
     lista = lista_kasittely(nimi, "w")
     print("Uusi lista luotu")
     return lista
 
+""" 
+Funktio tuotteiden lisäämiseen listatiedostoihin 
+Ottaa vastaan listan nimen parametrinä ja käyttää sitä kirjoittamaan listan sisällön oikeaan listaan
+"""
 def lisays(ostoslista):
-    """ 
-    Funktio tuotteiden lisäämiseen listatiedostoihin 
-    Ottaa vastaan listan nimen paramatrinä ja käyttää sitä kirjoittamaan listan sisällön oikeaan listaan
-    """            
+                
     tuotteet = [] # Tyhjä lista tuotteita varten
     while True: # Silmukka kysyy käyttäjältä listaan lisättäviä tuotteita
         tuote = input("Lisättävä tuote: ")
@@ -52,11 +53,12 @@ def lisays(ostoslista):
         for tuote in tuotteet: 
             ostoslista.write(f"{tuote}\n") # For loop kirjoittaa käyttäjän merkkijonot listatiedostoon
 
+""" 
+Funktio listan sisällön poistamiseen 
+Ottaa vastaan listan nimen parametrinä ja suorittaa poiston
+"""
 def listasta_poisto(lista):
-    """ 
-    Funktio listan sisällön poistamiseen 
-    Ottaa vastaan listan nimen parametrinä ja suorittaa poiston
-    """
+    
     while len(lista) > 0:
         poistettava_tuote = input("Mitkä tuotteet poistetaan? Kirjoita 'v' kun valmista: ")
         poistettavat_tuotteet = [tuote.strip() for tuote in poistettava_tuote.split(",")] # Muodostetaan lista poistettavista tuotteista ja poistetaan tulostuksesta välit
@@ -79,19 +81,20 @@ def listasta_poisto(lista):
             else:
                 print("Mitään tuotteita ei poistettu.")
 
-
+""" 
+Listatiedostojen poistaminen 
+- Ottaa vastaan listan nimen paramatrinä ja tiedosto poistetaan os-moduulilla
+"""
 def listan_poisto(ostoslista):
-    """ 
-    Listatiedostojen poistaminen 
-    - Ottaa vastaan listan nimen paramatrinä ja tiedosto poistetaan os-moduulilla
-    """
     os.remove(f"listat/{ostoslista}.txt") # Poistaa listan
 
+
+"""
+- Pääfunktio kutsuu tätä funktiota parametreillä tiedoston nimi ja hakemiston polku
+- Tämä funktio suorittaa listojen muokkausoperaatiot
+"""
 def listan_muokkaus(nimi, polku):
-    """
-    - Pääfunktio kutsuu tätä funktiota parametreillä tiedoston nimi ja hakemiston polku
-    - Tämä funktio suorittaa listojen muokkausoperaatiot
-    """
+    
     while nimi in os.listdir(polku):
         
         alaviiva = "\033[4m" # Tiedostojen nimet alaviivataan listauksessa
@@ -145,7 +148,6 @@ def listan_muokkaus(nimi, polku):
             continue
 
 def main():
-    """ Pääohjelma """
     polku = "./listat" # Listatiedostojen hakemisto
 
     if not os.path.exists(polku): # Luo hakemiston, jos sitä ei ole
