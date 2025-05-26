@@ -55,6 +55,8 @@ Projektia suunnitellessa seurasimme opintojaksolla annettuja ohjeita. Suunnittel
 Aloitimme suunnittelemalla ja kehittämällä sovelluksen siihen asti, että kaikki perusominaisuudet toimivat. 
 Projektin esittelyn jälkeen sovellusta voidaan vielä kehittää eteenpäin. Pyrimme tekemään sovellukseen koodia, jota voidaan helposti käyttää uudelleen uusiin ominaisuuksiin.
 
+Tiedostojen ohessa on ostoslista.html, joka on PyDocin luoma dokumentaatio projektista.
+
 Projektin vuokaavio: 
 ![Projektin Vuokaavio](/kuvat/vuokaavio.png "Projektin vuokaavio")
 
